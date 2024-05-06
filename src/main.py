@@ -12,13 +12,12 @@ with open("card_data/base1.json") as f:
     all_sets_cards = json.load(f)
 
 def gen_rand_card():
-    # while True:
-    #     rand_int = random.randint(len(all_sets_cards))
-    #     rand_card = all_sets_cards[rand_int]
-    #     if rand_card["supertype"] == "Pokémon" and 'flavorText' in rand_card:
-    #         break
-
-    rand_card = all_sets_cards[16]
+    while True:
+        rand_int = random.randint(len(all_sets_cards))
+        rand_card = all_sets_cards[rand_int]
+        if rand_card["supertype"] == "Pokémon" and 'flavorText' in rand_card:
+            break
+        
     if 'convertedRetreatCost' not in rand_card:
         rand_card.update({'convertedRetreatCost': '0'})
     if 'attacks' not in rand_card:

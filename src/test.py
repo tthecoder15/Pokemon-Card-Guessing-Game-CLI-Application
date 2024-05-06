@@ -37,7 +37,7 @@ def test_json_data():
                 assert card["number"]
 
 
-def test_every_cards_creation():
+def test_every_cards_creation(monkeypatch):
     set_files_list = os.listdir("card_data/")
     for set_file in set_files_list:
         file_path = "card_data/" + set_file

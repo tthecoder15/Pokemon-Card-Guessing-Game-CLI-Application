@@ -3,13 +3,24 @@ from numpy import random
 from card import Card
 
 # x = random.randomint(max number)
-# card_data_paths = os.listdir('card_data/')
-# print(card_data_paths)
+# TO generate list of paths for loading from JSON:
+    # card_data_paths = os.listdir('card_data/')
+    # print(card_data_paths)
+
+# NEED to develop SET TYPE LOGIC
 
 with open("card_data/base1.json") as f:
-    set_loaded = "base1"
-    # When different set logic is instilled, path str -'.json' will be set_loaded
     all_sets_cards = json.load(f)
+    loaded_card_set_id = 'base1'
+
+with open('set_data/set_data.json') as f:
+    all_sets_info = json.load(f)
+    for set in all_sets_info:
+        if set['id'] == loaded_card_set_id:
+            expansion = set['name']
+            release_date = set['releaseDate']
+            break
+    
 
 def gen_rand_card():
     while True:
@@ -26,7 +37,8 @@ def gen_rand_card():
         name=rand_card["name"],
         stage=rand_card["subtypes"][0],
         card_types=rand_card["types"],
-        expansion="base1",
+        expansion=expansion,
+        release_date=release_date,
         set_number=rand_card["number"],
         flav_text=rand_card["flavorText"],
         ret_c=rand_card["convertedRetreatCost"],

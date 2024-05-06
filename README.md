@@ -1,7 +1,8 @@
-# Pokemon Card Guessing Game:
+# Pokemon Card Guessing Game
+
 Using a JSON filed from the web filled with individual Pokemon card data, I will create a "Guess that Pokemon"  game.
 
-## Features:
+## Features
 
 * Standard mode: the player picks from a list of sets and is given the 'flavour text' of a random Pokemon card which describes thematic information about the Pokemon on the card. The player can then guess the Pokemon immediately or choose between extra information either "retreat cost" or "attack" which reveals those pieces of information. Again they can guess or choose a hint from "stage" or "type". The player must then guess the Pokemon. If the player is correct they are given the chance to play again
 

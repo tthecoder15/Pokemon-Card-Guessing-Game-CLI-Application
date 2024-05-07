@@ -1,4 +1,5 @@
 import json
+import os
 from numpy import random
 from game_dialogue import standard_dialogue, menu
 
@@ -41,7 +42,7 @@ def gen_rand_card():
         'release_date' : release_date,
         'set_number' : rand_card["number"],
         'flavor_text' : rand_card["flavorText"],
-        'ret_cost' : rand_card["convertedRetreatCost"],
+        'ret_cost' : str(rand_card["convertedRetreatCost"]),
         'atks' : rand_card["attacks"]}
 
 
@@ -67,21 +68,97 @@ def gen_rand_card():
 #         return self._games
 
 
-round_clues =[]
+round_hints = {}
+
+def update_print_round_hints(hint_label, dialogue, hint):
+    key_value = dialogue + '\n' + '"' + hint + '"' + '\n'
+    round_hints.update({hint_label : key_value})
+    return print(round_hints[hint_label])
+
+def hint_reminder(*hints_received):
+    for hint in hints_received:
+        print("Remember, these are the hints you've already received: " + '\n' + round_hints[hint])
 
 def standard_game():
-    if input(menu['greeting']).lower() == "scoreboard":
+    while True: 
+        if input(menu['greeting']).lower() == "scoreboard":
         # Need to return scoreboard here
-        print("THIS WILL SHOW THE SCOREBOARD")
-        return
-    if input(menu['mode_choice']).lower() == "hard":
-        # Need to run hardmode here
-        print("THIS WILL RUN HARDMODE")
-        return
+            print("THIS WILL SHOW THE SCOREBOARD")
+            raise Exception("SCOREBOARD HERE")
     
+        else:
+            break
+                
+    while True:
+        if input(menu['mode_choice']).lower() == "hard":
+            # Need to run hardmode here
+            print("THIS WILL RUN HARDMODE")
+            raise Exception("HARD MODE HERE")
+        
+        else:
+            break
+    
+    os.system('clear')
     round_card = gen_rand_card()
-    print(standard_dialogue['hint_1'])
-    print(round_card['flavor_text'])
+    update_print_round_hints('hint_1', standard_dialogue['hint_1'], round_card['flavor_text'])
+    
+    while True:
+        response = input(standard_dialogue['guess_or_hint1'])
+        if response.lower() == 'guess' or response.lower() == "'guess'":
+            print("THIS WILL BEGIN THE GUESSING COMPONENT")
+            raise Exception("GUESSING FUNCTION HERE")
+        
+        elif response.lower() == 'hint' or response.lower() == "'hint'":
+            break
 
+        else:
+            print("Please type 'guess' or 'hint'." + "\n")
+        
+    os.system('clear')
+    while True:
+        response = input(standard_dialogue['2nd_hint_prompt'])
+        
+        if response.lower() == 'retreat cost' or response.lower() == "'retreat cost'":         
+            update_print_round_hints('hint_2', standard_dialogue['2nd_hint_retreat'], round_card['ret_cost'])
+            break
 
+        if response.lower() == 'attack' or response.lower() == "'attack'":         
+            update_print_round_hints('hint_2', standard_dialogue['2nd_hint_attack'], round_card['atks'][random.randint(0, len(round_card['atks']))-1]['name'])
+            break
+
+        else:
+            print("Please type 'retreat cost' or 'attack'." + "\n")
+    hint_reminder('hint_1')
+
+    while True:
+        response = input(standard_dialogue['guess_or_hint2'])
+        if response.lower() == 'guess' or response.lower() == "'guess'":
+            print("THIS WILL BEGIN THE GUESSING COMPONENT")
+            raise Exception("GUESSING FUNCTION HERE")
+        
+        elif response.lower() == 'hint' or response.lower() == "'hint'":
+            break
+
+        else:
+            print("Please type 'guess' or 'hint'." + "\n")
+        
+    os.system('clear')
+    while True:
+        response = input(standard_dialogue['3rd_hint_prompt'])
+        
+        if response.lower() == 'evolution' or response.lower() == "'evolution'":         
+            update_print_round_hints('hint_3', standard_dialogue['3rd_hint_stage'], round_card['stage'])
+            break
+
+        if response.lower() == 'type' or response.lower() == "'type'":         
+            update_print_round_hints('hint_3', standard_dialogue['3rd_hint_type'], round_card['type'])
+            break
+
+        else:
+            print("Please type 'retreat cost' or 'attack'." + "\n")
+
+    hint_reminder('hint_1', 'hint_2')
+    print("This is where we're at yo!!!!")
+
+# print(gen_rand_card())
 standard_game()

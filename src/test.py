@@ -1,5 +1,5 @@
 from main import gen_rand_card
-from card import Card
+from guess import typo_eval
 import json
 import os
 
@@ -45,10 +45,8 @@ def test_every_cards_creation():
         all_sets_info = json.load(f)      
     for set_file in set_files_list:
         file_path = "card_data/" + set_file
-        
         with open(file_path) as f:
             all_cards_in_set = json.load(f)
-        
         for card in all_cards_in_set:
             for set in all_sets_info:
                 if set['id'] == file_path[10:-5]:
@@ -85,5 +83,14 @@ def test_card_gen_access():
         print(card.__dir__)
         num_of_tests -= 1
 
-print(test_card_gen_access())
-print(test_every_cards_creation())
+# BELOW TEST IS FOR TYPO CHECKER, NEEDS AUTOMATING
+def test_card_typo():
+    genned_card = gen_rand_card()
+    print("The generated card's name is: \n", genned_card['name'])
+    typo = input(f"Type a typo of {genned_card['name']}: \n")
+    typo_eval(genned_card, typo)
+
+
+# print(test_card_gen_access())
+# print(test_every_cards_creation())
+# test_card_typo()

@@ -19,7 +19,7 @@ class HintsAndScore:
     
     def update_score(self):
         num_of_hints = len(self.hints)
-        self.score += (12 - num_of_hints^2 - num_of_hints) * (1 + 1 * (self.streak / 10))
+        self.score += int((12 - num_of_hints^2 - num_of_hints) * (1 + 1 * (self.streak / 10)))
         self.streak += 1
 
     def get_score(self):

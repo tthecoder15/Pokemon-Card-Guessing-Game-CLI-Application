@@ -1,7 +1,6 @@
 from game_dialogue import standard_dialogue
 import os
 
-
 def typo_eval(mystery_card, response):
     same_letters_score = 0
     for index, letter in enumerate(mystery_card["name"]):
@@ -35,7 +34,9 @@ def typo_eval(mystery_card, response):
         return False
 
 
-def guess(mystery_card):
+def guess(mystery_card, session_hints_and_score):
+    os.system("clear")
+    session_hints_and_score.hint_reminder()
     print(standard_dialogue["guess_prompt"])
     while True:
         response = input()
@@ -44,6 +45,7 @@ def guess(mystery_card):
             break
         else:
             if typo_eval(mystery_card, response) is False:
-                print(standard_dialogue["answer_correct"])
+                print(standard_dialogue["answer_incorrect"])
+                print(f"\nYou guessed: {response}, but the answer was {mystery_card['name']}!")
                 break
     raise Exception("Guess")

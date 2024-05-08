@@ -6,7 +6,7 @@ menu_dialogue = {
 standard_dialogue = {
     "guess_or_hint1": "Are you ready to guess or would you like another hint? To guess type 'guess' and press enter. For another hint type 'hint' and press enter. ",
     "guess_or_hint2": "Surely you've got it now! Are you ready to guess or would you like another hint? To guess type 'guess' and press enter. For YET ANOTHER hint type 'hint' and press enter. ",
-    "guess_time": "Now, I can't offer anymore hints or it'd be too easy! It's time to guess!",
+    "mandatory_guess": "Now, I can't offer anymore hints or it'd be too easy! It's time to guess!",
 
     "guess_prompt": "Enter the name of the mysterious Pokémon: ",
     "guess_input_clarify": "Type the name of the Pokémon and press enter: ",

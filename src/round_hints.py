@@ -5,7 +5,6 @@ def update_print_round_hints(round_hints, hint_label, dialogue, hint):
     round_hints.update({hint_label: key_value})
     return print(round_hints[hint_label])
 
-
 def hint_reminder(round_hints, *hints_received):
     print(hint_dialogue["summary"] + "\n")
     for hint in hints_received:

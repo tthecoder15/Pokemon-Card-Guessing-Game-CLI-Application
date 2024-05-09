@@ -3,6 +3,7 @@ from standard_game import standard_game
 from game_dialogue import menu_dialogue
 from hints_and_score import HintsAndScore
 from game_loops import Quit, PlayAgain
+from scoreboard import Scoreboard
 
 class Exit(Exception):
     pass
@@ -10,11 +11,6 @@ class Exit(Exception):
 def hard_mode_game():
     print("This will trigger the hard mode of the game")
     raise Exception("Hard mode function not yet defined")
-
-
-def scoreboard():
-    print("This will trigger the scoreboard functionality")
-    raise Exception("Scoreboard functionality not defined yet")
 
 
 def menu():
@@ -27,9 +23,8 @@ def menu():
                 response = input()
                 if response.lower() == "scoreboard" or response.lower() == "'scoreboard'":
                     # Need to return scoreboard here
-                    scoreboard()
+                    raise Exception("Scoreboard functionality not ready yet")
                 if response.lower() == "exit" or response.lower() == "'exit'":
-                    # Need to return scoreboard here
                     raise Exit
                 else:
                     break
@@ -43,6 +38,7 @@ def menu():
         try: 
             while True:
                 session_hints_score = HintsAndScore()
+                scoreboard = Scoreboard()
                 response = input()
 
                 if response.lower() == "hard" or response.lower() == "'hard'":
@@ -50,10 +46,11 @@ def menu():
                     hard_mode_game()
 
                 else:
+                    scoreboard.set_current_game_mode('standard')
                     while True:
                         try:
                             session_hints_score.hint_reset()
-                            standard_game(session_hints_score)
+                            standard_game(scoreboard, session_hints_score)
                         except PlayAgain:
                             pass
         except Quit:

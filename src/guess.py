@@ -8,9 +8,9 @@ class CorrectGuess(Exception):
 class IncorrectGuess(Exception):
     pass
 
-def typo_eval(mystery_card, response):
+def typo_eval(round_card, response):
     same_letters_score = 0
-    for index, letter in enumerate(mystery_card["name"]):
+    for index, letter in enumerate(round_card["name"]):
         # enumerates each letter in the card's name whilst iterating through each letter
         if index == 0 and len(response) > 0:
             if letter == response[index]:
@@ -28,7 +28,7 @@ def typo_eval(mystery_card, response):
                     same_letters_score += 1
             except IndexError:
                 break
-    closeness_score = same_letters_score / len(mystery_card["name"])
+    closeness_score = same_letters_score / len(round_card["name"])
 
     if closeness_score > 0.5:
         os.system("clear")
@@ -41,20 +41,22 @@ def typo_eval(mystery_card, response):
         return False
 
 
-def guess(mystery_card, round_hints_session_score):
+def guess(round_card, round_hints_session_score, scoreboard):
     os.system("clear")
     round_hints_session_score.hint_reminder()
     print(standard_dialogue["guess_prompt"])
     while True:
         response = input()
-        if response.lower() == mystery_card["name"].lower():
+        if response.lower() == round_card["name"].lower():
             print(standard_dialogue["answer_correct"])
             round_hints_session_score.update_score()
+            scoreboard.update(round_hints_session_score.get_score())
             raise CorrectGuess()
         else:
-            if typo_eval(mystery_card, response) is False:
+            if typo_eval(round_card, response) is False:
                 print(standard_dialogue["answer_incorrect"])
                 print(
-                    f"\nYou guessed: {response}, but the answer was {mystery_card['name']}!"
+                    f"\nYou guessed: {response}, but the answer was {round_card['name']}!"
                 )
+                scoreboard.update(round_hints_session_score.get_score())
                 raise IncorrectGuess()

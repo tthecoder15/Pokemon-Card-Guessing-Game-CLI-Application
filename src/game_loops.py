@@ -19,9 +19,9 @@ def play_again_loop():
         else:
             print(standard_dialogue['play_again_loop'])
 
-def guess_loop(round_card, round_hints_session_score):
+def guess_loop(round_card, round_hints_session_score, scoreboard):
     try: 
-        guess(round_card, round_hints_session_score)
+        guess(round_card, round_hints_session_score, scoreboard,)
     except CorrectGuess:
         round_hints_session_score.streak_and_score(correct=True)
         print(standard_dialogue['correct_play_again'])
@@ -31,12 +31,12 @@ def guess_loop(round_card, round_hints_session_score):
         print(standard_dialogue['incorrect_play_again'])
         play_again_loop() 
 
-def hint_guess_loop(round_card, round_hints_session_score, dialogue_key):
+def hint_guess_loop(round_card, round_hints_session_score, scoreboard, dialogue_key):
     print(standard_dialogue[f'{dialogue_key}'])
     while True:
         response = input()
         if response.lower() == "guess" or response.lower() == "'guess'":
-            guess_loop(round_card, round_hints_session_score)
+            guess_loop(round_card, round_hints_session_score, scoreboard)
         elif response.lower() == "hint" or response.lower() == "'hint'":
             break
         else:

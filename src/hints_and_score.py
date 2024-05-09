@@ -18,6 +18,11 @@ class HintsAndScore:
         self.hints = []
     
     def update_score(self):
+        if self.score < 0:
+        # Accounts for scoring errors where score is less than zero
+            print("FOR SOME REASON THE SCORE WAS LESS THAN 0")
+            self.score = 0
+
         num_of_hints = len(self.hints)
         self.score += int((12 - num_of_hints^2 - num_of_hints) * (1 + 1 * (self.streak / 10)))
         self.streak += 1

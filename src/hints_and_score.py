@@ -15,7 +15,7 @@ class HintsAndScore:
             print(hint)
 
     def hint_reset(self):
-        self.hints = {}
+        self.hints = []
     
     def update_score(self):
         num_of_hints = len(self.hints)
@@ -27,3 +27,11 @@ class HintsAndScore:
     
     def get_streak(self):
         return self.streak
+    
+    def streak_and_score(self, correct):
+        if correct is True:
+            print(f"\nGreat work! Your current score is: \n{self.get_score()}.") 
+            print(f"Your current streak is: \n{self.get_streak()}.")
+        if correct is False:
+            print(f"Tough luck! Your session score was: \n{self.get_score()}.") 
+            print(f"\nYour session streak was: {self.get_streak()}.")

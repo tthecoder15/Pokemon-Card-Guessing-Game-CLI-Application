@@ -50,7 +50,6 @@ def guess(mystery_card, round_hints_session_score):
         if response.lower() == mystery_card["name"].lower():
             print(standard_dialogue["answer_correct"])
             round_hints_session_score.update_score()
-            round_hints_session_score.get_score()
             raise CorrectGuess()
         else:
             if typo_eval(mystery_card, response) is False:

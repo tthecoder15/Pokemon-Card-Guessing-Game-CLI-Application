@@ -1,5 +1,5 @@
 menu_dialogue = {
-    "greeting": "Hi, are you ready to guess that Pokémon? Press enter to play or type 'scoreboard' and press enter to see the high scores. ",
+    "greeting": "Hi, are you ready to guess that Pokémon? Press enter to play or type 'scoreboard' and press enter to see the high scores. Otherwise, type 'exit' to exit the game.",
     "mode_choice": "Would you like to play standard mode or hard mode? Press enter to play standard or type 'hard' and press enter for hard mode. ",
 }
 
@@ -11,11 +11,13 @@ standard_dialogue = {
     "guess_prompt": "Enter the name of the mysterious Pokémon: ",
     "guess_input_clarify": "Type the name of the Pokémon and press enter: ",
     "close_guess" : "Your attempt is very close. Perhaps you had a typo? Here's what you wrote: ",
-    "answer_correct": "You are...CORRECT! Professor Oak would be proud!",
-    "answer_incorrect": "You are...unfortunately, incorrect. Nice try though.",
+    "answer_correct": "\nYou are...CORRECT! Professor Oak would be proud!",
+    "answer_incorrect": "\nYou are...unfortunately, incorrect. Nice try though.",
     'running_score' : "Your session score is: ",
     'record_score' : "Hey! Your score is good enough to go on the leaderboard!",
-    "play_again" : "Would you like to play again?",
+    "play_again_loop": "Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: \n",
+    "correct_play_again": "\nWell done, would you like to play again? Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: ",
+    "incorrect_play_again": "\nThat's a tough break, but you can't give up now! Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: ",
 }
 
 hint_dialogue = {

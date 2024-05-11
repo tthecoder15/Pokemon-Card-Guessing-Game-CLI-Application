@@ -1,8 +1,8 @@
 """Module containing functions to randomly generate Pokémon cards from local json files.
 
-Generates a dictionary containing dictionaries of Pokémon set data upon import.
-Individual set data accessible with set id.
-Allows access to set name, release date and local file directory.
+Auto generates a dictionary containing dictionaries of Pokémon set data upon import.
+These dictionaries are key paired with the set name (string).
+These dictionaries contain set release date and local file directory
 """
 
 import os
@@ -30,13 +30,31 @@ available_set_names = list(local_sets_dicts.keys())
 
 
 def gen_rand_card(gametype):
+    """Generates a local dict containing a random Pokémon card's data.
+
+    Operates differently depending on gametype.
+    Standard gametype prompts user to choose a Pokémon card expansion.
+    A random Pokémon card, detailing a particular Pokémon, is returned from this set.
+    Hard gametype randomly selects the set and returns a Pokémon's details as a dictionary.
+
+    Parameters
+    ----------
+    gametype : A string, "standard" or "hard", that specfies game type.
+
+    Returns
+    -------
+    dict
+        A dict containing a Pokémon's attributes.
+    """
     if gametype == "standard":
         while True:
-            print("Please select a Pokémon set for a random card to be chosen from: ")
+            print(
+                "Please select a Pokémon card expansion for a random card to be chosen from: "
+            )
             for index, set_name in enumerate(available_set_names):
                 print(f"{index+1}. {set_name}")
             print(
-                "\nTo choose, please type the number next to the set name and press enter."
+                "\nTo choose, please type the number next to the expansion name and press enter."
             )
             response = input()
             if int(response) <= len(available_set_names):
@@ -50,7 +68,7 @@ def gen_rand_card(gametype):
 
     print(selected_set)
 
-    with open (f"card_data/{local_sets_dicts[selected_set]['set_dir']}") as f:
+    with open(f"card_data/{local_sets_dicts[selected_set]['set_dir']}") as f:
         loaded_set_cards = json.load(f)
 
     while True:
@@ -71,13 +89,11 @@ def gen_rand_card(gametype):
         "name": rand_card["name"],
         "stage": rand_card["subtypes"][0],
         "card_types": rand_card["types"],
-        "expansion": local_sets_dicts[selected_set]['set_name'],
-        "release_date": local_sets_dicts[selected_set]['release_date'],
+        "expansion": local_sets_dicts[selected_set]["set_name"],
+        "release_date": local_sets_dicts[selected_set]["release_date"],
         "set_number": rand_card["number"],
         "flavor_text": rand_card["flavorText"],
         "retreat": str(rand_card["convertedRetreatCost"]),
         "atks": rand_card["attacks"],
         "type": rand_card["types"],
     }
-
-print(gen_rand_card('hard'))

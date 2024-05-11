@@ -14,7 +14,7 @@ Exit
 """
 
 import os
-from game_modes import standard_game
+from game_modes import standard_game, hard_game
 from game_dialogue import menu_dialogue
 from hints_and_score import HintsAndScore
 from game_loops import Quit, PlayAgain

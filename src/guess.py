@@ -1,12 +1,14 @@
-from game_dialogue import standard_dialogue
+from game_dialogue import guess_dialogue
 import os
 
 
 class CorrectGuess(Exception):
     pass
 
+
 class IncorrectGuess(Exception):
     pass
+
 
 def typo_eval(round_card, response):
     same_letters_score = 0
@@ -33,7 +35,7 @@ def typo_eval(round_card, response):
     if closeness_score > 0.5:
         os.system("clear")
         print(
-            standard_dialogue["close_guess"]
+            guess_dialogue["close_guess"]
             + response
             + ". \nTry again or press enter to try again: "
         )
@@ -44,17 +46,17 @@ def typo_eval(round_card, response):
 def guess(round_card, round_hints_session_score, scoreboard):
     os.system("clear")
     round_hints_session_score.hint_reminder()
-    print(standard_dialogue["guess_prompt"])
+    print(guess_dialogue["guess_prompt"])
     while True:
         response = input()
-        if response.lower() == round_card["name"].lower():
-            print(standard_dialogue["answer_correct"])
+        if response.lower() in round_card["name"].lower():
+            print(guess_dialogue["answer_correct"])
             round_hints_session_score.update_score()
             scoreboard.update(round_hints_session_score.get_score())
             raise CorrectGuess()
         else:
             if typo_eval(round_card, response) is False:
-                print(standard_dialogue["answer_incorrect"])
+                print(guess_dialogue["answer_incorrect"])
                 print(
                     f"\nYou guessed: {response}, but the answer was {round_card['name']}!"
                 )

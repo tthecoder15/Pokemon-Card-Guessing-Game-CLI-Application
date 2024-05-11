@@ -1,27 +1,41 @@
+"""The instigating function that is run to play the "Guess that Pokémon" game.
+
+Uses a loop as a menu to navigate to gameplay mode selection or to view the scoreboard.
+Within game mode branch, a makes the user choose between playing again or quitting.
+
+Raises
+------
+Exception
+    _description_
+Exception
+    _description_
+Exit
+    Used to terminate the app.
+"""
+
 import os
-from standard_game import standard_game
+from game_modes import standard_game
 from game_dialogue import menu_dialogue
 from hints_and_score import HintsAndScore
 from game_loops import Quit, PlayAgain
 from scoreboard import Scoreboard
 
+
 class Exit(Exception):
     pass
-
-def hard_mode_game():
-    print("This will trigger the hard mode of the game")
-    raise Exception("Hard mode function not yet defined")
-
 
 def menu():
     while True:
         os.system("clear")
         print(menu_dialogue["greeting"])
 
-        try: 
+        try:
             while True:
                 response = input()
-                if response.lower() == "scoreboard" or response.lower() == "'scoreboard'":
+                if (
+                    response.lower() == "scoreboard"
+                    or response.lower() == "'scoreboard'"
+                ):
                     # Need to return scoreboard here
                     raise Exception("Scoreboard functionality not ready yet")
                 if response.lower() == "exit" or response.lower() == "'exit'":
@@ -35,18 +49,23 @@ def menu():
         os.system("clear")
         print(menu_dialogue["mode_choice"])
 
-        try: 
+        try:
             while True:
                 session_hints_score = HintsAndScore()
                 scoreboard = Scoreboard()
                 response = input()
 
                 if response.lower() == "hard" or response.lower() == "'hard'":
-                    # Need to run hardmode here
-                    hard_mode_game()
+                    scoreboard.set_current_game_mode("hard")
+                    while True:
+                        try:
+                            session_hints_score.hint_reset()
+                            hard_game(scoreboard, session_hints_score)
+                        except PlayAgain:
+                            pass
 
                 else:
-                    scoreboard.set_current_game_mode('standard')
+                    scoreboard.set_current_game_mode("standard")
                     while True:
                         try:
                             session_hints_score.hint_reset()

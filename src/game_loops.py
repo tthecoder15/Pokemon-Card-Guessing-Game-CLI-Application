@@ -21,9 +21,9 @@ def play_again_loop():
         response = input()
         if response.lower() == "play again" or response.lower() == "'play again'":
             os.system("clear")
-            raise PlayAgain()
+            raise PlayAgain
         elif response.lower() == "menu" or response.lower() == "'menu'":
-            raise Menu()
+            raise Menu
         else:
             print(gameplay_dialogue["play_again_loop"])
 
@@ -56,7 +56,7 @@ def hint_guess_loop(round_card, session_hints_score, scoreboard, dialogue_key):
     os.system("clear")
 
 
-def hint_check(round_card, session_hints_score, hint_type, response, hint_added):
+def hint_check(round_card, session_hints_score, hint_type, response):
     if response.lower() == hint_type or response.lower() == f"'{hint_type}'":
         if hint_type == "attack":
             session_hints_score.update_hints(
@@ -77,6 +77,7 @@ def hint_check(round_card, session_hints_score, hint_type, response, hint_added)
                 hint_type,
                 round_card["stage"],
             )
+            print(hint_dialogue["stage_reminder"])
             raise HintAdded
         else:
             session_hints_score.update_hints(
@@ -95,10 +96,10 @@ def choose_hint_loop(
         response = input()
         try:
             hint_check(
-                round_card, session_hints_score, hint_choice1, response, hint_added
+                round_card, session_hints_score, hint_choice1, response
             )
             hint_check(
-                round_card, session_hints_score, hint_choice2, response, hint_added
+                round_card, session_hints_score, hint_choice2, response
             )
             print(f"Please type '{hint_choice1}' or '{hint_choice2}'." + "\n")
         except HintAdded:

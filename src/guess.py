@@ -66,7 +66,7 @@ def guess(round_card, session_hints_score, scoreboard):
             session_hints_score.update_score()
             scoreboard.update(session_hints_score.get_score())
             session_hints_score.streak_and_score(correct=True)
-            raise CorrectGuess()
+            raise CorrectGuess
         else:
             if typo_eval(round_card, response) is False:
                 print(guess_dialogue["answer_incorrect"])
@@ -76,4 +76,4 @@ def guess(round_card, session_hints_score, scoreboard):
                 scoreboard.update(session_hints_score.get_score())
                 session_hints_score.streak_and_score(correct=False)
                 session_hints_score.reset_streak_score()
-                raise IncorrectGuess()
+                raise IncorrectGuess

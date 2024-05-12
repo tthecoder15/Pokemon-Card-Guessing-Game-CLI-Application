@@ -135,13 +135,6 @@ def hint_check(round_card, session_hints_score, hint_type, response):
                 round_card["type"][0],
             )
             raise HintAdded
-        elif hint_type == "stage":
-            session_hints_score.update_hints(
-                hint_type,
-                round_card["stage"],
-            )
-            print(hint_dialogue["stage_reminder"])
-            raise HintAdded
         else:
             session_hints_score.update_hints(
                 hint_type,

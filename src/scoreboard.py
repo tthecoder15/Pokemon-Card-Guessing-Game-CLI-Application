@@ -92,7 +92,6 @@ class Scoreboard:
             Used to identify that the score has been saved to the scoreboard.
         """
         if session_score <= 0:
-            # Immediately checks if sessions score is above 0 and if not, exits
             return
         is_same_session = False
         updated_old_score = {}
@@ -123,13 +122,10 @@ class Scoreboard:
                             },
                         )
                     raise ScoreAdded
-                elif (
-                    session_score == scoreboard_entry["score"]
-                    and is_same_session is True
-                ):
-                    self.active_sb.append(updated_old_score)
-                    raise ScoreAdded
-            if len(self.active_sb) < 5 and is_same_session is False:
+            if session_score == scoreboard_entry["score"] and is_same_session is True:
+                self.active_sb.append(updated_old_score)
+                raise ScoreAdded
+            elif len(self.active_sb) < 5 and is_same_session is False:
                 score_name = self.name_entry_loop()
                 self.active_sb.append(
                     {

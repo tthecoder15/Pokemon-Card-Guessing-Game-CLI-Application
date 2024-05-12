@@ -81,49 +81,53 @@ def test_every_cards_creation():
                 print(f"{card['name']} is not eligible")
 
 
-def test_card_gen_access():
-    # Generates an arbitrary number of card instances
-    num_of_tests = 100
-    while num_of_tests > 0:
-        card = gen_rand_card("standard")
-        print(card.__dir__)
-        num_of_tests -= 1
+# Automated test for generating cards via hard method
+def test_hard_card_gen_access():
+    num_of_tests = 10
     while num_of_tests > 0:
         card = gen_rand_card("hard")
         print(card.__dir__)
         num_of_tests -= 1
 
 
+# # Non automated test for generating cards via standard method
+# def test_card_gen_access():
+#     num_of_tests = 10
+#     while num_of_tests > 0:
+#         card = gen_rand_card("standard")
+#         print(card.__dir__)
+#         num_of_tests -= 1
+# test_card_gen_access()
+
+
 # BELOW TEST IS FOR TYPO CHECKER, NEEDS AUTOMATING
-def test_card_typo():
-    genned_card = gen_rand_card("hard")
-    print("The generated card's name is: \n", genned_card["name"])
-    typo = input(f"Type a typo of {genned_card['name']}: \n")
-    typo_eval(genned_card, typo)
+# def test_card_typo():
+#     genned_card = gen_rand_card("hard")
+#     print("The generated card's name is: \n", genned_card["name"])
+#     typo = input(f"Type a typo of {genned_card['name']}: \n")
+#     typo_eval(genned_card, typo)
 
-
-def test_extra_character_names():
-    print("The next card is Nidoran ♀")
-    guess(
-        {"name": "Nidoran ♀"},
-        HintsAndScore(),
-        Scoreboard().set_current_game_mode("standard"),
-    )
-    print("The next card is Nidoran ♂")
-    guess(
-        {"name": "Nidoran ♂"},
-        HintsAndScore(),
-        Scoreboard().set_current_game_mode("standard"),
-    )
-    print("The next card is Dark Kadabra")
-    guess(
-        {"name": "Dark Kadabra"},
-        HintsAndScore(),
-        Scoreboard().set_current_game_mode("standard"),
-    )
-
-
-test_extra_character_names()
-# print(test_card_gen_access())
-# print(test_every_cards_creation())
 # test_card_typo()
+
+
+# Non automated test for names with extra characters:
+# def test_extra_character_names():
+#     print("The next card is Nidoran ♀")
+#     guess(
+#         {"name": "Nidoran ♀"},
+#         HintsAndScore(),
+#         Scoreboard().set_current_game_mode("standard"),
+#     )
+#     print("The next card is Nidoran ♂")
+#     guess(
+#         {"name": "Nidoran ♂"},
+#         HintsAndScore(),
+#         Scoreboard().set_current_game_mode("standard"),
+#     )
+#     print("The next card is Dark Kadabra")
+#     guess(
+#         {"name": "Dark Kadabra"},
+#         HintsAndScore(),
+#         Scoreboard().set_current_game_mode("standard"),
+#     )
+# test_extra_character_names()

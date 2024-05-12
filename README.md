@@ -33,7 +33,7 @@ There are no hardware requirements to run this application.
 To install this application please download the project as a zip file and extract the files. Then, using a CLI that can run bash scripts, navigate to the folder and execute:
 
 ```bash
-pokemon_guess.sh
+bash pokemon_guess.sh
 ```
 
 This script will check if an appropriate version of Python is installed on your system and link installation instructions if it is not from <https://realpython.com/installing-python/> (Real Python, n.d.). Once an appropriate version of Python is installed, execute the program again and the script will create a virtual environment, launch the virtual environment, install the neccessary packages to run the application in this environment. The script will then launch the application.
@@ -74,7 +74,7 @@ An alternative to the standard gameplay mode, hard mode randomly selects the mys
 
 Hard mode uses many of the same processes as standard mode including being passed a ```HintsAndScore``` instance to store and print the given hints. Unlike standard mode, hard mode only triggers ```hint_guess_loop``` once and the user may only select between 'stage' and 'attack'.
 
-The ```choose_hint_loop()``` prompts the user to input their selection which, when an appropriate input is received, triggers the ```hint_check()``` function twice. The ```hint_check()``` receives the mystery card's dictionary, the ```HintsAndScore``` instance, the hint choices and the user's response. It first compares the user's response to the available responses and, if they are matched, it checks whether the hint selected is "attack" or "type". If it is either of these hint types, unique logic is applied to access this data on the mystery card's dict as they sometimes nested inside an extra layer to the other card attributes. For the attack hint specifically, a random attack is selected using the ```random.randint()``` to target a random attack's index. If the user selects the "stage" hint, the terminal prints an additional reminder to user's explaining the "stage" attribute. Once the hint is added to the ```HintsAndScore``` instance, a ```HintAdded``` exception returns the user to the ```hard_mode()``` function, prints the flavour test and new hint and proceeds to the ```guess()``` function.
+The ```choose_hint_loop()``` prompts the user to input their selection which, when an appropriate input is received, triggers the ```hint_check()``` function twice. The ```hint_check()``` receives the mystery card's dictionary, the ```HintsAndScore``` instance, the hint choices and the user's response. It first compares the user's response to the available responses and, if they are matched, it checks whether the hint selected is "attack" or "type". If it is either of these hint types, unique logic is applied to access this data on the mystery card's dict as they sometimes nested inside an extra layer to the other card attributes. For the attack hint specifically, a random attack is selected using the ```random.randint()``` to target a random attack's index. Once the hint is added to the ```HintsAndScore``` instance, a ```HintAdded``` exception returns the user to the ```hard_mode()``` function, prints the flavour test and new hint and proceeds to the ```guess()``` function.
 
 ### Scoring and Scoreboard
 
@@ -166,7 +166,7 @@ Day seven part one. Notably, on this day, I reassessed where I was at in the pro
 Day seven part two.
 
 ![A WIP screenshot of my project management plan from day 7](docs/imp_track_ss/imp_track10.png)
-Day eight. Submission.
+Day eight. Submission. Unfortunately, I did not get time to automate the testing as I would like to. Some of the tests that were difficult to automate remain in the test file as comments so that they be run manually. Because I did not get time to automate testing, I tested the game rigorously manually.
 
 ## Imported packages and modules
 

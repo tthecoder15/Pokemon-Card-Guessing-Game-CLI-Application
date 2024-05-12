@@ -17,6 +17,8 @@ def standard_game(scoreboard, session_hints_score):
     session_hints_score : _class instance_
         The HintsAndScore instance tracking the user's hints.
     """
+    session_hints_score.hint_reset()
+    # Hints reset
     round_card = gen_rand_card("standard")
     # Card for round generated
     os.system("clear")

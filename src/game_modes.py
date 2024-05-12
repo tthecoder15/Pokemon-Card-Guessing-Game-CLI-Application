@@ -1,3 +1,6 @@
+"""Contains functions to run standard game mode and hard game mode.
+"""
+
 import os
 from game_dialogue import gameplay_dialogue
 from random_card_gen import gen_rand_card
@@ -5,6 +8,15 @@ from game_loops import hint_guess_loop, choose_hint_loop, guess_loop
 
 
 def standard_game(scoreboard, session_hints_score):
+    """Standard gameplay function, triggers neccessary gameplay loops.
+
+    Parameters
+    ----------
+    scoreboard : _class instance_
+        The Scoreboard instance tracking the user's session ID and scoreboard.
+    session_hints_score : _class instance_
+        The HintsAndScore instance tracking the user's hints.
+    """
     round_card = gen_rand_card("standard")
     # Card for round generated
     os.system("clear")
@@ -43,6 +55,15 @@ def standard_game(scoreboard, session_hints_score):
 
 
 def hard_game(scoreboard, session_hints_score):
+    """Hard gameplay function, triggers neccessary gameplay loops.
+
+    Parameters
+    ----------
+    scoreboard : _class instance_
+        The Scoreboard instance tracking the user's session ID and scoreboard.
+    session_hints_score : _class instance_
+        The HintsAndScore instance tracking the user's hints.
+    """
     session_hints_score.hint_reset()
     # Hints reset
     round_card = gen_rand_card("hard")

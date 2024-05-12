@@ -1,3 +1,15 @@
+"""Contains Scorenboard class and methods.
+
+Raises
+------
+SameScore
+    Used to identify that the scoreboard already features the active session score.
+ScoreAdded
+    Used to identify that the score has been saved to the scoreboard.
+Menu
+    Used to return to the main menu.
+"""
+
 import json
 from numpy import random
 from game_dialogue import scoreboard_dialogue
@@ -6,17 +18,15 @@ import os
 
 
 class ScoreAdded(Exception):
-    pass
+    """Used to identify that the score has been saved to the scoreboard."""
 
 
 class SameScore(Exception):
-    pass
+    """Used to identify that the scoreboard already features the active session score."""
 
 
 class Scoreboard:
-    """
-    Used to initialise a scoreboard object for reading/writing in the different modes.
-    """
+    """Used to initialise a scoreboard object for reading/writing in the different modes."""
 
     def __init__(self):
         self.active_sb = []
@@ -24,7 +34,13 @@ class Scoreboard:
         self.session_score_id = 0
 
     def set_current_game_mode(self, game_mode):
-        # Initialises local copy of scoreboard variable based on what mode is loaded, generates a session ID that is used to ensure scores are not copied twice if the player plays multiple times
+        """Used to load the relevant scoreboard and generate a unique session ID.
+
+        Parameters
+        ----------
+        game_mode : _str_
+            "standard" or "hard", designates the game more.
+        """
         if game_mode == "standard":
             self.active_gamemode = game_mode
             with open("scoreboards/standard_scoreboard.json") as f:
@@ -33,8 +49,6 @@ class Scoreboard:
             self.active_gamemode = game_mode
             with open("scoreboards/hard_scoreboard.json") as f:
                 self.active_sb = json.load(f)
-        else:
-            raise ValueError("Please pass a game mode")
         while True:
             gen_score_id = random.randint(0, 9999)
             duplicate_id = False
@@ -45,12 +59,14 @@ class Scoreboard:
                 self.session_score_id = gen_score_id
                 break
 
-    def check(self):
-        print("This is the active scoreboard value:", self.active_sb)
-
-    # This needs formatting later ^
-
     def name_entry_loop(self):
+        """Prompts the user to enter an appropriate name for their scoreboard entry.
+
+        Returns
+        -------
+        _str_
+            A five character or less string for "name" attribute on a scoreboard entry.
+        """
         print("Please enter a name for your high score! (Max five characters): ")
         while True:
             score_name = input()
@@ -61,6 +77,20 @@ class Scoreboard:
         return score_name
 
     def update(self, session_score):
+        """Used to update the scoreboard with a new high score and save to the scoreboard JSON.
+
+        Parameters
+        ----------
+        session_score : _int_
+            The current session score.
+
+        Raises
+        ------
+        SameScore
+            Used to identify that the scoreboard already features the active session score.
+        ScoreAdded
+            Used to identify that the score has been saved to the scoreboard.
+        """
         if session_score <= 0:
             # Immediately checks if sessions score is above 0 and if not, exits
             return
@@ -123,6 +153,13 @@ class Scoreboard:
 
 
 def scoreboard_viewer():
+    """Used to load the two scoreboards and print all entries.
+
+    Raises
+    ------
+    Menu
+        Used to return the user to the main menu.
+    """
     os.system("clear")
     while True:
         print(scoreboard_dialogue["which_scoreboard"])

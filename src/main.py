@@ -1,16 +1,9 @@
-"""The instigating function that is run to play the "Guess that Pokémon" game.
-
-Uses a loop as a menu to navigate to gameplay mode selection or to view the scoreboard.
-Within game mode branch, a makes the user choose between playing again or quitting.
+"""The module used to initiate the application.
 
 Raises
 ------
-Exception
-    _description_
-Exception
-    _description_
-Exit
-    Used to terminate the app.
+Quit
+    An exception raised to terminate the application.
 """
 
 import os
@@ -22,10 +15,19 @@ from scoreboard import Scoreboard, scoreboard_viewer
 
 
 class Quit(Exception):
-    pass
+    """An exception raised to terminate the application."""
 
 
 def menu():
+    """The instigating function that is run to play the "Guess that Pokémon" game.
+
+    Uses loops to prompt gameplay mode selection, to scoreboard viewing or to terminate the app.
+
+    Raises
+    ------
+    Quit
+        Triggers the termination of the application.
+    """
     while True:
         os.system("clear")
         try:

@@ -1,3 +1,14 @@
+"""A collection of dictionaries storing dialogue for gameplay and menu navigation.
+
+"menu_dialogue" stores dialogue that prints when naviating the main menu.
+"scoreboard_dialogue" stores dialogue that prints when viewing the scoreboards.
+"gameplay_dialogue" stores dialogue that prints when playing the game.
+"menu_dialogue" stores dialogue that prints when naviating the main menu.
+"hint_dialogue" stores dialogue that prints when interacting with hints.
+"guess_dialogue" stores dialogue that prints when executing guess functions.
+
+"""
+
 menu_dialogue = {
     "greeting": "Hi, are you ready to guess that Pokémon? To play type 'play' and press enter or type 'scoreboard' and press enter to see the high scores. Otherwise, type 'quit' to close the game.",
     "greeting_loop": "\nPlease type 'play' to play, 'scoreboard' to view the scoreboard or 'quit' to close the game.",
@@ -5,10 +16,10 @@ menu_dialogue = {
 }
 
 scoreboard_dialogue = {
-    "which_scoreboard" : "Would you like to view the standard mode scoreboard or the hard mode scoreboard? Type 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
-    "which_sb_loop" : "\nPlease enter 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
+    "which_scoreboard": "Would you like to view the standard mode scoreboard or the hard mode scoreboard? Type 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
+    "which_sb_loop": "\nPlease enter 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
     "standard_sb_print": "\nStandard Mode Scoreboard: ",
-    "hard_sb_print": "\nHard Mode Scoreboard: "
+    "hard_sb_print": "\nHard Mode Scoreboard: ",
 }
 
 gameplay_dialogue = {
@@ -17,8 +28,8 @@ gameplay_dialogue = {
     "mandatory_guess": "Now, I can't offer anymore hints or it'd be too easy! It's time to guess!",
     "mandatory_guess_hard": "Sorry, but it's not called hard mode for nothing! It's time to guess!",
     "guess_input_clarify": "Type the name of the Pokémon and press enter: ",
-    "running_score" : "Your session score is: ",
-    "record_score" : "Hey! Your score is good enough to go on the leaderboard!",
+    "running_score": "Your session score is: ",
+    "record_score": "Hey! Your score is good enough to go on the leaderboard!",
     "play_again_loop": "Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: \n",
     "correct_play_again": "\nWell done, would you like to play again? Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: ",
     "incorrect_play_again": "\nThat's a tough break, but you can't give up now! Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: ",
@@ -38,7 +49,7 @@ hint_dialogue = {
 }
 
 guess_dialogue = {
-    "close_guess" : "Your attempt is very close. Perhaps you had a typo? Here's what you wrote: ",
+    "close_guess": "Your attempt is very close. Perhaps you had a typo? Here's what you wrote: ",
     "guess_prompt": "Enter the name of the mysterious Pokémon: ",
     "answer_correct": "\nYou are...CORRECT! Professor Oak would be proud!",
     "answer_incorrect": "\nYou are...unfortunately, incorrect. Nice try though.",

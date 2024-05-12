@@ -1,8 +1,6 @@
 """Module containing functions to randomly generate Pokémon cards from local json files.
 
-Auto generates a dictionary containing dictionaries of Pokémon set data upon import.
-These dictionaries are key paired with the set name (string).
-These dictionaries contain set release date and local file directory
+Upon import, loads set data to local variables for later access.
 """
 
 import os
@@ -39,12 +37,13 @@ def gen_rand_card(gametype):
 
     Parameters
     ----------
-    gametype : A string, "standard" or "hard", that specfies game type.
+    gametype : _str_
+        A string, "standard" or "hard", that specfies game type.
 
     Returns
     -------
-    dict
-        A dict containing a Pokémon's attributes.
+    _dict_
+        A dict containing the random generated Pokémon card's attributes.
     """
     if gametype == "standard":
         while True:
@@ -69,19 +68,18 @@ def gen_rand_card(gametype):
         loaded_set_cards = json.load(f)
 
     while True:
-        # Randomly generates an integer within the set selected's length then selects that dict within the set and copies it to a local variable. Evaluates if that card is a Pokemon card with flavor text then breaks the loop.
         rand_int = random.randint(len(loaded_set_cards))
         rand_card = loaded_set_cards[rand_int]
+        # Randomly generates an integer, selects the card at that and copies it to a local variable.
         if rand_card["supertype"] == "Pokémon" and "flavorText" in rand_card:
             break
-        # Evaluates if the card has a "convertedRetreatCost" key and if not assigns it a value of 0
+        # Evaluates if that card is a Pokemon card with flavor text then breaks the loop.
     if "convertedRetreatCost" not in rand_card:
         rand_card.update({"convertedRetreatCost": "0"})
-        # Evaluates if the card has an "attacks" key and if not assigns it a value of "This Pokemon has no attacks!"
+        # Evaluates if the card has a "convertedRetreatCost" key and if not assigns it a value of 0.
     if "attacks" not in rand_card:
         rand_card.update({"attacks": "This Pokémon has no attacks!"})
-
-        # RETURNS dict using randomly generated cards info
+        # Evaluates if the card has an "attacks" key and if not assigns it a value.
     return {
         "name": rand_card["name"],
         "stage": rand_card["subtypes"][0],

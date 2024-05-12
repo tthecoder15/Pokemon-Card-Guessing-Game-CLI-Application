@@ -1,5 +1,16 @@
 import json
 from numpy import random
+from game_dialogue import scoreboard_dialogue
+from game_loops import Menu
+import os
+
+
+class ScoreAdded(Exception):
+    pass
+
+
+class SameScore(Exception):
+    pass
 
 
 class Scoreboard:
@@ -39,69 +50,101 @@ class Scoreboard:
 
     # This needs formatting later ^
 
+    def name_entry_loop(self):
+        print("Please enter a name for your high score! (Max five characters): ")
+        while True:
+            score_name = input()
+            if len(score_name) <= 5:
+                break
+            print(f"You entered: '{score_name}'.")
+            print("Please enter a name that is five or less characters.")
+        return score_name
+
     def update(self, session_score):
-        if session_score < 0:
+        if session_score <= 0:
             # Immediately checks if sessions score is above 0 and if not, exits
             return
-        same_session = False
-        for index, score in enumerate(self.active_sb):
-            if score["session_score_id"] == self.session_score_id:
-                same_session = self.active_sb.pop(index)
-                same_session["score"] = session_score
-        # Checks if any of the scores in the scoreboard are the active one based on session id, if it is the same, the original score is removed from the list and copied to a local var for addition to the list later
+        is_same_session = False
+        updated_old_score = {}
+        try:
+            for index, scoreboard_entry in enumerate(self.active_sb):
+                if scoreboard_entry["session_score_id"] == self.session_score_id:
+                    is_same_session = True
+                    if scoreboard_entry["score"] == session_score:
+                        raise SameScore
+                    updated_old_score = self.active_sb.pop(index)
+                    updated_old_score["score"] = session_score
+        except SameScore:
+            return
+        try:
+            for index, scoreboard_entry in enumerate(self.active_sb):
+                if session_score > scoreboard_entry["score"]:
+                    if is_same_session is True:
+                        self.active_sb.insert(index, updated_old_score)
+                        raise ScoreAdded
+                    else:
+                        score_name = self.name_entry_loop()
+                        self.active_sb.insert(
+                            index,
+                            {
+                                "name": score_name,
+                                "session_score_id": self.session_score_id,
+                                "score": session_score,
+                            },
+                        )
+                    raise ScoreAdded
+                elif (
+                    session_score == scoreboard_entry["score"]
+                    and is_same_session is True
+                ):
+                    self.active_sb.append(updated_old_score)
+                    raise ScoreAdded
+            if len(self.active_sb) < 5 and is_same_session is False:
+                score_name = self.name_entry_loop()
+                self.active_sb.append(
+                    {
+                        "name": score_name,
+                        "session_score_id": self.session_score_id,
+                        "score": session_score,
+                    },
+                )
+        except ScoreAdded:
+            pass
 
-        for index, score in enumerate(self.active_sb):
-            # Cycles through scores in scoreboard and enumerates to keep track of their index position
-            if score["score"] < session_score:
-                # If the session score is greater than any scoreboard value, process begins to save it
-                if bool(same_session):
-                    self.active_sb.insert(index, same_session)
-                    break
-                # If same session, score is inserted in the scoreboard list without requiring a new name entry and loop is broken
-                else:
-                    # If not the same session, user is prompted to input a name to save with their record, loop doesn't end until user follows name convention
-                    print(
-                        "Please enter a name for your high score! (Max five characters): "
-                    )
-                    while True:
-                        score_name = input()
-                        if len(score_name) <= 5:
-                            self.active_sb.insert(
-                                index,
-                                {
-                                    "name": score_name,
-                                    "session_score_id": self.session_score_id,
-                                    "score": session_score,
-                                },
-                            )
-                            break
-                        else:
-                            print(
-                                f"You entered: '{score_name}'. Please enter a name that is five or less characters."
-                            )
-        if len(self.active_sb) < 5 and same_session is False:
-            print("Please enter a name for your high score! (Max five characters): ")
-            while True:
-                score_name = input()
-                if len(score_name) <= 5:
-                    self.active_sb.append(
-                        {
-                            "name": score_name,
-                            "session_score_id": self.session_score_id,
-                            "score": session_score,
-                        }
-                    )
-                    break
-                else:
-                    print(
-                        f"You entered: '{score_name}'. Please enter a name that is five or less characters."
-                    )
         if len(self.active_sb) > 5:
             self.active_sb.pop()
-        # Below assess which game mode is active, open that JSON file and overwrite it with the new scoreboard list of dicts
+
         if self.active_gamemode == "standard":
             with open("scoreboards/standard_scoreboard.json", "w") as f:
                 json.dump(self.active_sb, f)
         elif self.active_gamemode == "hard":
             with open("scoreboards/hard_scoreboard.json", "w") as f:
                 json.dump(self.active_sb, f)
+
+
+def scoreboard_viewer():
+    os.system("clear")
+    while True:
+        print(scoreboard_dialogue["which_scoreboard"])
+        while True:
+            response = input().lower()
+            if response == "standard" or response == "'standard'":
+                with open("scoreboards/standard_scoreboard.json") as f:
+                    loaded_sb = json.load(f)
+                print(scoreboard_dialogue["standard_sb_print"])
+                for index, entry in enumerate(loaded_sb):
+                    print(f"{index+1}. Name: {entry['name']}, Score: {entry['score']}")
+                print()
+                break
+            elif response == "hard" or response == "'hard'":
+                with open("scoreboards/hard_scoreboard.json") as f:
+                    loaded_sb = json.load(f)
+                print(scoreboard_dialogue["hard_sb_print"])
+                for index, entry in enumerate(loaded_sb):
+                    print(f"{index+1}. Name: {entry['name']}, Score: {entry['score']}")
+                print()
+                break
+            elif response == "menu" or response == "'menu'":
+                raise Menu
+            else:
+                print(scoreboard_dialogue["which_sb_loop"])

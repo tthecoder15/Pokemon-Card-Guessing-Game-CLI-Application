@@ -1,1 +1,5 @@
-[{"name": "Tombo", "session_score_id": 7774, "score": 33}]
+[
+  { "name": "Erika", "session_score_id": 7774, "score": 33 },
+  { "name": "Volkner", "session_score_id": 2110, "score": 21 },
+  { "name": "Brock", "session_score_id": 9107, "score": 10 }
+]

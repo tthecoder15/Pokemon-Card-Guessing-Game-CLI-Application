@@ -64,8 +64,6 @@ def hard_game(scoreboard, session_hints_score):
     # Player prompted to choose which hint between attack and stage
     session_hints_score.hint_reminder()
     # Player's current hints printed ^
-    session_hints_score.hint_reminder()
-    # Player's current hints printed
     print(gameplay_dialogue["mandatory_guess_hard"])
     # Player prompted to guess
     guess_loop(round_card, session_hints_score, scoreboard)

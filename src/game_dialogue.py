@@ -1,6 +1,14 @@
 menu_dialogue = {
-    "greeting": "Hi, are you ready to guess that Pokémon? Press enter to play or type 'scoreboard' and press enter to see the high scores. Otherwise, type 'exit' to exit the game.",
+    "greeting": "Hi, are you ready to guess that Pokémon? To play type 'play' and press enter or type 'scoreboard' and press enter to see the high scores. Otherwise, type 'quit' to close the game.",
+    "greeting_loop": "\nPlease type 'play' to play, 'scoreboard' to view the scoreboard or 'quit' to close the game.",
     "mode_choice": "Would you like to play standard mode or hard mode? Press enter to play standard or type 'hard' and press enter for hard mode. ",
+}
+
+scoreboard_dialogue = {
+    "which_scoreboard" : "Would you like to view the standard mode scoreboard or the hard mode scoreboard? Type 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
+    "which_sb_loop" : "\nPlease enter 'standard' or 'hard' and press enter. To return to the main menu type 'menu' and press enter.",
+    "standard_sb_print": "\nStandard Mode Scoreboard: ",
+    "hard_sb_print": "\nHard Mode Scoreboard: "
 }
 
 gameplay_dialogue = {
@@ -11,16 +19,16 @@ gameplay_dialogue = {
     "guess_input_clarify": "Type the name of the Pokémon and press enter: ",
     "running_score" : "Your session score is: ",
     "record_score" : "Hey! Your score is good enough to go on the leaderboard!",
-    "play_again_loop": "Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: \n",
-    "correct_play_again": "\nWell done, would you like to play again? Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: ",
-    "incorrect_play_again": "\nThat's a tough break, but you can't give up now! Type 'play again' and press to play again or type 'quit' and press enter to return to the menu: ",
+    "play_again_loop": "Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: \n",
+    "correct_play_again": "\nWell done, would you like to play again? Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: ",
+    "incorrect_play_again": "\nThat's a tough break, but you can't give up now! Type 'play again' and press to play again or type 'menu' and press enter to return to the menu: ",
 }
 
 hint_dialogue = {
     "summary": "Here are the hints you've had so far: ",
     "hint_1": "The Pokémon's description reads: ",
     "2nd_hint_prompt": "For your second hint, do you want to know the Pokémon's retreat cost or one of their attacks? Remember, these attributes change between different sets! Type 'retreat' or 'attack' then press enter: ",
-    "2nd_hint_hard": "This is hard mode so I'm going to give you one more hint! For your FINAL hint, do you want to know the Pokémon's stage or one of it's attacks? Remember, these attributes change between different sets! Type 'stage' or 'attack' then press enter: ",
+    "2nd_hint_hard": "This is hard mode so I'm only going to give you one more hint! For your FINAL hint, do you want to know the Pokémon's stage or one of it's attacks? Remember, these attributes change between different sets! Type 'stage' or 'attack' then press enter: ",
     "retreat": "The Pokemon's retreat cost, on this card, is: ",
     "attack": "One of their attacks is called: ",
     "3rd_hint_prompt": "For your final hint, would you like to know the Pokémon's evolution stage or their type? For evolution stage write 'stage' and press the enter key. For type write 'type' and press the enter key: ",

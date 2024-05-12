@@ -4,7 +4,7 @@ from guess import guess, CorrectGuess, IncorrectGuess
 from game_dialogue import hint_dialogue, gameplay_dialogue
 
 
-class Quit(Exception):
+class Menu(Exception):
     pass
 
 
@@ -20,36 +20,35 @@ def play_again_loop():
     while True:
         response = input()
         if response.lower() == "play again" or response.lower() == "'play again'":
+            os.system("clear")
             raise PlayAgain()
-        elif response.lower() == "quit" or response.lower() == "'quit'":
-            raise Quit()
+        elif response.lower() == "menu" or response.lower() == "'menu'":
+            raise Menu()
         else:
             print(gameplay_dialogue["play_again_loop"])
 
 
-def guess_loop(round_card, round_hints_session_score, scoreboard):
+def guess_loop(round_card, session_hints_score, scoreboard):
     try:
         guess(
             round_card,
-            round_hints_session_score,
+            session_hints_score,
             scoreboard,
         )
     except CorrectGuess:
-        round_hints_session_score.streak_and_score(correct=True)
         print(gameplay_dialogue["correct_play_again"])
         play_again_loop()
     except IncorrectGuess:
-        round_hints_session_score.streak_and_score(correct=False)
         print(gameplay_dialogue["incorrect_play_again"])
         play_again_loop()
 
 
-def hint_guess_loop(round_card, round_hints_session_score, scoreboard, dialogue_key):
+def hint_guess_loop(round_card, session_hints_score, scoreboard, dialogue_key):
     print(gameplay_dialogue[f"{dialogue_key}"])
     while True:
         response = input()
         if response.lower() == "guess" or response.lower() == "'guess'":
-            guess_loop(round_card, round_hints_session_score, scoreboard)
+            guess_loop(round_card, session_hints_score, scoreboard)
         elif response.lower() == "hint" or response.lower() == "'hint'":
             break
         else:

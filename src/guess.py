@@ -10,6 +10,15 @@ class IncorrectGuess(Exception):
     pass
 
 
+def alt_pokemon_name_check(round_card, response):
+    if "Dark" in round_card["name"]:
+        if response == round_card["name"][5:]:
+            return True
+    elif "♂" in round_card["name"] or "♀" in round_card["name"]:
+        if response == round_card["name"][:-2]:
+            return True
+
+
 def typo_eval(round_card, response):
     same_letters_score = 0
     for index, letter in enumerate(round_card["name"]):
@@ -43,16 +52,20 @@ def typo_eval(round_card, response):
         return False
 
 
-def guess(round_card, round_hints_session_score, scoreboard):
+def guess(round_card, session_hints_score, scoreboard):
     os.system("clear")
-    round_hints_session_score.hint_reminder()
+    session_hints_score.hint_reminder()
     print(guess_dialogue["guess_prompt"])
     while True:
-        response = input()
-        if response.lower() in round_card["name"].lower():
+        response = input().title()
+        if (
+            response == round_card["name"]
+            or alt_pokemon_name_check(round_card, response) is True
+        ):
             print(guess_dialogue["answer_correct"])
-            round_hints_session_score.update_score()
-            scoreboard.update(round_hints_session_score.get_score())
+            session_hints_score.update_score()
+            scoreboard.update(session_hints_score.get_score())
+            session_hints_score.streak_and_score(correct=True)
             raise CorrectGuess()
         else:
             if typo_eval(round_card, response) is False:
@@ -60,5 +73,7 @@ def guess(round_card, round_hints_session_score, scoreboard):
                 print(
                     f"\nYou guessed: {response}, but the answer was {round_card['name']}!"
                 )
-                scoreboard.update(round_hints_session_score.get_score())
+                scoreboard.update(session_hints_score.get_score())
+                session_hints_score.streak_and_score(correct=False)
+                session_hints_score.reset_streak_score()
                 raise IncorrectGuess()

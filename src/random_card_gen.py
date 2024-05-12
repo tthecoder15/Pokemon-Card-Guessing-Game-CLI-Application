@@ -64,9 +64,6 @@ def gen_rand_card(gametype):
     elif gametype == "hard":
         random_index = int(random.randint(len(available_set_names)))
         selected_set = available_set_names[random_index]
-        print(random_index)
-
-    print(selected_set)
 
     with open(f"card_data/{local_sets_dicts[selected_set]['set_dir']}") as f:
         loaded_set_cards = json.load(f)

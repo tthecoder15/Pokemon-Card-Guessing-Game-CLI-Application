@@ -103,9 +103,9 @@ def test_card_typo():
 
 
 def test_extra_character_names():
-    print("The next card is Dark Kadabra")
+    print("The next card is Nidoran ♀")
     guess(
-        {"name": "Dark Kadabra"},
+        {"name": "Nidoran ♀"},
         HintsAndScore(),
         Scoreboard().set_current_game_mode("standard"),
     )
@@ -115,14 +115,15 @@ def test_extra_character_names():
         HintsAndScore(),
         Scoreboard().set_current_game_mode("standard"),
     )
-    print("The next card is Nidoran ♀")
+    print("The next card is Dark Kadabra")
     guess(
-        {"name": "Nidoran ♀"},
+        {"name": "Dark Kadabra"},
         HintsAndScore(),
         Scoreboard().set_current_game_mode("standard"),
     )
 
 
+test_extra_character_names()
 # print(test_card_gen_access())
 # print(test_every_cards_creation())
 # test_card_typo()

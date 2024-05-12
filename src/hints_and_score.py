@@ -31,6 +31,10 @@ class HintsAndScore:
         )
         self.streak += 1
 
+    def reset_streak_score(self):
+        self.score = 0
+        self.streak = 0
+
     def get_score(self):
         return self.score
 

@@ -17,32 +17,33 @@ import os
 from game_modes import standard_game, hard_game
 from game_dialogue import menu_dialogue
 from hints_and_score import HintsAndScore
-from game_loops import Quit, PlayAgain
-from scoreboard import Scoreboard
+from game_loops import Menu, PlayAgain
+from scoreboard import Scoreboard, scoreboard_viewer
 
 
-class Exit(Exception):
+class Quit(Exception):
     pass
+
 
 def menu():
     while True:
         os.system("clear")
-        print(menu_dialogue["greeting"])
-
         try:
             while True:
-                response = input()
-                if (
-                    response.lower() == "scoreboard"
-                    or response.lower() == "'scoreboard'"
-                ):
-                    # Need to return scoreboard here
-                    raise Exception("Scoreboard functionality not ready yet")
-                if response.lower() == "exit" or response.lower() == "'exit'":
-                    raise Exit
-                else:
+                print(menu_dialogue["greeting"])
+                response = input().lower()
+                if response == "scoreboard" or response == "'scoreboard'":
+                    try:
+                        scoreboard_viewer()
+                    except Menu:
+                        os.system("clear")
+                elif response == "play" or response == "'play":
                     break
-        except Exit:
+                elif response == "quit" or response == "'quit'":
+                    raise Quit
+                else:
+                    print(menu_dialogue["greeting_loop"])
+        except Quit:
             print("Goodbye!")
             break
 
@@ -60,6 +61,7 @@ def menu():
                     while True:
                         try:
                             session_hints_score.hint_reset()
+                            os.system("clear")
                             hard_game(scoreboard, session_hints_score)
                         except PlayAgain:
                             pass
@@ -69,10 +71,11 @@ def menu():
                     while True:
                         try:
                             session_hints_score.hint_reset()
+                            os.system("clear")
                             standard_game(scoreboard, session_hints_score)
                         except PlayAgain:
                             pass
-        except Quit:
+        except Menu:
             pass
 
 

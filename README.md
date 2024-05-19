@@ -6,7 +6,7 @@ This is a Python application that challenges users to guess the Pokémon feature
 
 ## Link to Pokémon Card Guessing Game remote repository
 
-[Pokémon Card Guessing Game Github Repository.](https://github.com/htthecoder15/TT-t1a3-terminal_application)
+[Pokémon Card Guessing Game Github Repository.](https://github.com/tthecoder15/TT-t1a3-terminal_application)
 
 ## Help
 
